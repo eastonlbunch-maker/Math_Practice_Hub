@@ -47,9 +47,9 @@
         <div class="nav-group">
             <div class="sidebar-logo">Math Practice</div>
             <div class="nav-item active" onclick="location.reload()">Home Workspace</div>
-            <div class="nav-item" onclick="launchProxy('https://desmos.com')">Graphing Utility</div>
-            <div class="nav-item" onclick="launchProxy('https://geogebra.org')">Geometry Sandbox</div>
-            <div class="nav-item" onclick="launchProxy('https://wikipedia.org')">Research Portal</div>
+            <div class="nav-item" onclick="launchScramjet('https://desmos.com')">Graphing Utility</div>
+            <div class="nav-item" onclick="launchScramjet('https://geogebra.org')">Geometry Sandbox</div>
+            <div class="nav-item" onclick="launchScramjet('https://wikipedia.org')">Research Portal</div>
         </div>
     </aside>
 
@@ -63,8 +63,8 @@
     </main>
 
     <script>
-        // FIXED: Hardcoded to a reliable public community unblocker network
-        const PROXY_BASE = "https://tinfw.ru";
+        // HOOKED DIRECTLY TO YOUR RUNNING LIVE SCRAMJET ENGINE
+        const SCRAMJET_BASE = "https://vercel.app"; 
 
         const searchInput = document.getElementById('main-search');
         const cursorGlow = document.getElementById('cursor-glow');
@@ -76,23 +76,23 @@
 
         searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                var rawValue = searchInput.value.trim();
-                if (!rawValue) return;
+                let val = searchInput.value.trim();
+                if (!val) return;
 
-                if (!rawValue.startsWith('http://') && !rawValue.startsWith('https://')) {
-                    if (rawValue.includes('.') && !rawValue.includes(' ')) {
-                        rawValue = 'https://' + rawValue;
+                if (!val.startsWith('http://') && !val.startsWith('https://')) {
+                    if (val.includes('.') && !val.includes(' ')) {
+                        val = 'https://' + val;
                     } else {
-                        rawValue = 'https://google.com' + encodeURIComponent(rawValue);
+                        val = 'https://google.com' + encodeURIComponent(val);
                     }
                 }
-                launchProxy(rawValue);
+                launchScramjet(val);
             }
         });
 
-        function launchProxy(targetWebUrl) {
-            // Formats search terms securely through the active node pipeline
-            window.location.replace(PROXY_BASE + "service/" + btoa(targetWebUrl));
+        function launchScramjet(targetUrl) {
+            let cleanBase = SCRAMJET_BASE.endsWith('/') ? SCRAMJET_BASE : SCRAMJET_BASE + '/';
+            window.location.replace(cleanBase + "main/" + encodeURIComponent(targetUrl));
         }
     </script>
 </body>
