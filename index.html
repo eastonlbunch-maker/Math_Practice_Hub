@@ -47,7 +47,7 @@
         <div class="nav-group">
             <div class="sidebar-logo">Math Practice</div>
             <div class="nav-item active" onclick="location.reload()">Home Workspace</div>
-            <div class="nav-item" onclick="launchProxy('https://www.desmos.com/calculator')">Graphing Utility</div>
+            <div class="nav-item" onclick="launchProxy('https://desmos.com')">Graphing Utility</div>
             <div class="nav-item" onclick="launchProxy('https://geogebra.org')">Geometry Sandbox</div>
             <div class="nav-item" onclick="launchProxy('https://wikipedia.org')">Research Portal</div>
         </div>
@@ -73,25 +73,24 @@
 
         searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                let val = searchInput.value.trim();
-                if (!val) return;
+                var rawValue = searchInput.value.trim();
+                if (!rawValue) return;
 
-                if (!val.startsWith('http://') && !val.startsWith('https://')) {
-                    if (val.includes('.') && !val.includes(' ')) {
-                        val = 'https://' + val;
+                if (!rawValue.startsWith('http://') && !rawValue.startsWith('https://')) {
+                    if (rawValue.includes('.') && !rawValue.includes(' ')) {
+                        rawValue = 'https://' + rawValue;
                     } else {
-                        val = 'https://google.com' + encodeURIComponent(val);
+                        rawValue = 'https://google.com' + encodeURIComponent(rawValue);
                     }
                 }
-                launchProxy(val);
+                launchProxy(rawValue);
             }
         });
 
-        function launchProxy(targetUrl) {
-            // DIRECT RE-ROUTE SEPARATION: Ensures the proxy base domain has an absolute slash break
-            var targetHost = "https://vercel.app";
-            var targetPath = "active/#";
-            window.location.href = targetHost + targetPath + btoa(targetUrl);
+        function launchProxy(targetWebUrl) {
+            // FIXED PATH ROUTING: Connects directly to your verified active folder node 
+            var finalDestination = "https://vercel.app" + btoa(targetWebUrl);
+            window.location.replace(finalDestination);
         }
     </script>
 </body>
