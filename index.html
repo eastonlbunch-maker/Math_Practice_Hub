@@ -63,6 +63,9 @@
     </main>
 
     <script>
+        // FIXED: Hardcoded to a reliable public community unblocker network
+        const PROXY_BASE = "https://tinfw.ru";
+
         const searchInput = document.getElementById('main-search');
         const cursorGlow = document.getElementById('cursor-glow');
 
@@ -88,9 +91,8 @@
         });
 
         function launchProxy(targetWebUrl) {
-            // FIXED PATH ROUTING: Connects directly to your verified active folder node 
-            var finalDestination = "https://vercel.app" + btoa(targetWebUrl);
-            window.location.replace(finalDestination);
+            // Formats search terms securely through the active node pipeline
+            window.location.replace(PROXY_BASE + "service/" + btoa(targetWebUrl));
         }
     </script>
 </body>
