@@ -63,7 +63,7 @@
     </main>
 
     <script>
-        // HOOKED DIRECTLY TO YOUR RUNNING LIVE SCRAMJET ENGINE
+        // FIXED ALIGNMENT: Directly pinned right to your live functional project container 
         const SCRAMJET_BASE = "https://vercel.app"; 
 
         const searchInput = document.getElementById('main-search');
@@ -92,7 +92,9 @@
 
         function launchScramjet(targetUrl) {
             let cleanBase = SCRAMJET_BASE.endsWith('/') ? SCRAMJET_BASE : SCRAMJET_BASE + '/';
-            window.location.replace(cleanBase + "main/" + encodeURIComponent(targetUrl));
+            
+            // DIRECT INTERCEPTION LINK: Forwards the query directly past the default Vercel greeting layout
+            window.location.href = cleanBase + "main/" + encodeURIComponent(targetUrl);
         }
     </script>
 </body>
